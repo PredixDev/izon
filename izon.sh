@@ -55,7 +55,7 @@ function getVersionFile() {
 function getLocalSetupFuncs() {
   #get the predix-scripts url and branch from the version.json
   __readDependency $PREDIX_SCRIPTS PREDIX_SCRIPTS_URL PREDIX_SCRIPTS_BRANCH
-  LOCAL_SETUP_FUNCS_URL=https://github.build.ge.com/raw/adoption/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/scripts/local-setup-funcs.sh
+  LOCAL_SETUP_FUNCS_URL=https://raw.githubusercontent.com/PredixDev/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/scripts/local-setup-funcs.sh
 
   if [ -f "local-setup-funcs.sh" ]; then
     rm local-setup-funcs.sh
@@ -69,10 +69,10 @@ function getLocalSetupFuncs() {
 function getProxyScripts() {
   #get the predix-scripts url and branch from the version.json
   __readDependency $PREDIX_SCRIPTS PREDIX_SCRIPTS_URL PREDIX_SCRIPTS_BRANCH
-  VERIFY_PROXY_URL=https://github.build.ge.com/raw/adoption/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/verify-proxy.sh
-  TOGGLE_PROXY_URL=https://github.build.ge.com/raw/adoption/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/toggle-proxy.sh
-  ENABLE_XSL_URL=https://github.build.ge.com/raw/adoption/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/enable-proxy.xsl
-  DISABLE_XSL_URL=https://github.build.ge.com/raw/adoption/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/disable-proxy.xsl
+  VERIFY_PROXY_URL=https://raw.githubusercontent.com/PredixDev/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/toggle-proxy.sh
+  TOGGLE_PROXY_URL=https://raw.githubusercontent.com/PredixDev/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/toggle-proxy.sh
+  ENABLE_XSL_URL=https://raw.githubusercontent.com/PredixDev/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/enable-proxy.xsl
+  DISABLE_XSL_URL=https://raw.githubusercontent.com/PredixDev/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/disable-proxy.xsl
 
   if [ -f "verify-proxy.sh" ]; then
     rm verify-proxy.sh
