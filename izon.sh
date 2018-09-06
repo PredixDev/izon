@@ -43,7 +43,7 @@ function getVersionFile() {
   if [ ! -f "$VERSION_JSON" ]; then
     if [[ $currentDir == *"$REPO_NAME" ]]; then
       if [[ ! -f manifest.yml ]]; then
-        echo "We noticed you are in a directory named $REPO_NAME but the usual contents are not here, please rename the dir or do a git clone of the whole repo.  If you rename the dir, the script will get the repo."
+        echo "We noticed you are in a directory named $REPO_NAME but the usual contents (version.json) are not here, please rename the dir or do a git clone of the whole repo.  If you rename the dir, the script will get the repo."
         exit 1
       fi
     fi
@@ -55,8 +55,8 @@ function getVersionFile() {
 function getLocalSetupFuncs() {
   #get the predix-scripts url and branch from the version.json
   __readDependency $PREDIX_SCRIPTS PREDIX_SCRIPTS_URL PREDIX_SCRIPTS_BRANCH
-  LOCAL_SETUP_FUNCS_URL=https://raw.githubusercontent.com/PredixDev/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/scripts/local-setup-funcs.sh
-  echo $LOCAL_SETUP_FUNCS_URL
+  LOCAL_SETUP_FUNCS_URL=https://github.build.ge.com/raw/adoption/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/scripts/local-setup-funcs.sh
+
   if [ -f "local-setup-funcs.sh" ]; then
     rm local-setup-funcs.sh
   fi
@@ -64,4 +64,40 @@ function getLocalSetupFuncs() {
     curl -s -O $LOCAL_SETUP_FUNCS_URL
   fi
   source local-setup-funcs.sh
+}
+
+function getProxyScripts() {
+  #get the predix-scripts url and branch from the version.json
+  __readDependency $PREDIX_SCRIPTS PREDIX_SCRIPTS_URL PREDIX_SCRIPTS_BRANCH
+  VERIFY_PROXY_URL=https://github.build.ge.com/raw/adoption/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/verify-proxy.sh
+  TOGGLE_PROXY_URL=https://github.build.ge.com/raw/adoption/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/toggle-proxy.sh
+  ENABLE_XSL_URL=https://github.build.ge.com/raw/adoption/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/enable-proxy.xsl
+  DISABLE_XSL_URL=https://github.build.ge.com/raw/adoption/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/disable-proxy.xsl
+
+  if [ -f "verify-proxy.sh" ]; then
+    rm verify-proxy.sh
+  fi
+  if [ -f "toggle-proxy.sh" ]; then
+    rm toggle-proxy.sh
+  fi
+  if [ -f "enable-proxy.xsl" ]; then
+    rm enable-proxy.xsl
+  fi
+  if [ -f "disable-proxy.xsl" ]; then
+    rm disable-proxy.xsl
+  fi
+
+  if [ ! -f "verify-proxy.sh" ]; then
+    curl -s -O $VERIFY_PROXY_URL
+  fi
+  if [ ! -f "toggle-proxy.sh" ]; then
+    curl -s -O $TOGGLE_PROXY_URL
+  fi
+  if [ ! -f "enable-proxy.xsl" ]; then
+    curl -s -O $ENABLE_XSL_URL
+  fi
+  if [ ! -f "disable-proxy.xsl" ]; then
+    curl -s -O $DISABLE_XSL_URL
+  fi
+  source verify-proxy.sh
 }
