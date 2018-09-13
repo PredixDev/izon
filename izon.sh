@@ -64,6 +64,7 @@ function getLocalSetupFuncs() {
     curl -s -O $LOCAL_SETUP_FUNCS_URL
   fi
   source local-setup-funcs.sh
+  getProxyScripts
 }
 
 function getProxyScripts() {
