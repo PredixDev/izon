@@ -91,10 +91,10 @@ function getProxyScripts() {
   GITHUB_RAW=$1
   #get the predix-scripts url and branch from the version.json
   __readDependency $PREDIX_SCRIPTS PREDIX_SCRIPTS_URL PREDIX_SCRIPTS_BRANCH
-  VERIFY_PROXY_URL="$GIHTUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/verify-proxy.sh"
-  TOGGLE_PROXY_URL="$GIHTUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/toggle-proxy.sh"
-  ENABLE_XSL_URL="$GIHTUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/enable-proxy.xsl"
-  DISABLE_XSL_URL="$GIHTUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/disable-proxy.xsl"
+  VERIFY_PROXY_URL="$GITHUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/verify-proxy.sh"
+  TOGGLE_PROXY_URL="$GITHUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/toggle-proxy.sh"
+  ENABLE_XSL_URL="$GITHUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/enable-proxy.xsl"
+  DISABLE_XSL_URL="$GITHUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/disable-proxy.xsl"
   # Deleting any old files and downloading new ones
   rm -rf verify-proxy.sh
   rm -rf toggle-proxy.sh
