@@ -38,6 +38,25 @@ function __version() {
   fi
 }
 
+function getUsingCurl() {
+  if [ -z $1 ]; then
+    echo "Link not passed"
+    exit 1
+  fi
+  if [[ -n $GITHUB_BUILD_TOKEN && $1 = *"github.build.ge"* ]]; then
+    SHORT_LINK=${1##*//}
+    URL="https://$GITHUB_BUILD_TOKEN@$SHORT_LINK"
+    echo "Downloading the file $1"
+    curl -s -O $URL
+    if [ $? -ne 0 ]; then
+      echo "Please ensure env var GITHUB_BUILD_TOKEN for github.build.ge.com token is set"
+    fi
+  else
+    echo "Downloading the file $1"
+    curl -s -O $1
+  fi
+}
+
 function getVersionFile() {
     #if needed, get the version.json that resolves dependent repos from another github repo
   if [ ! -f "$VERSION_JSON" ]; then
@@ -48,6 +67,9 @@ function getVersionFile() {
       fi
     fi
     #echo $VERSION_JSON_URL
+    if [[ -n $GITHUB_BUILD_TOKEN && $VERSION_JSON_URL = *"github.build.ge"* ]]; then
+      VERSION_JSON_URL=https://$GITHUB_BUILD_TOKEN@github.build.ge.com/raw/adoption/$REPO_NAME/$BRANCH/version.json
+    fi
     curl -s -O $VERSION_JSON_URL
   fi
 }
@@ -55,50 +77,32 @@ function getVersionFile() {
 function getLocalSetupFuncs() {
   #get the predix-scripts url and branch from the version.json
   __readDependency $PREDIX_SCRIPTS PREDIX_SCRIPTS_URL PREDIX_SCRIPTS_BRANCH
-  LOCAL_SETUP_FUNCS_URL=https://raw.githubusercontent.com/PredixDev/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/scripts/local-setup-funcs.sh
-
-  if [ -f "local-setup-funcs.sh" ]; then
-    rm local-setup-funcs.sh
-  fi
-  if [ ! -f "local-setup-funcs.sh" ]; then
-    curl -s -O $LOCAL_SETUP_FUNCS_URL
-  fi
-  source local-setup-funcs.sh
+  LOCAL_SETUP_FUNCS_URL=https://github.build.ge.com/raw/adoption/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/scripts/local-setup-funcs.sh
+  # Getting the proxy scripts
   getProxyScripts
+  # Deleting any old file and downloading a new one
+  rm -rf local-setup-funcs.sh
+  getUsingCurl $LOCAL_SETUP_FUNCS_URL
+  source local-setup-funcs.sh
 }
 
 function getProxyScripts() {
   #get the predix-scripts url and branch from the version.json
   __readDependency $PREDIX_SCRIPTS PREDIX_SCRIPTS_URL PREDIX_SCRIPTS_BRANCH
-  VERIFY_PROXY_URL=https://raw.githubusercontent.com/PredixDev/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/verify-proxy.sh
-  TOGGLE_PROXY_URL=https://raw.githubusercontent.com/PredixDev/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/toggle-proxy.sh
-  ENABLE_XSL_URL=https://raw.githubusercontent.com/PredixDev/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/enable-proxy.xsl
-  DISABLE_XSL_URL=https://raw.githubusercontent.com/PredixDev/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/disable-proxy.xsl
-
-  if [ -f "verify-proxy.sh" ]; then
-    rm verify-proxy.sh
-  fi
-  if [ -f "toggle-proxy.sh" ]; then
-    rm toggle-proxy.sh
-  fi
-  if [ -f "enable-proxy.xsl" ]; then
-    rm enable-proxy.xsl
-  fi
-  if [ -f "disable-proxy.xsl" ]; then
-    rm disable-proxy.xsl
-  fi
-
-  if [ ! -f "verify-proxy.sh" ]; then
-    curl -s -O $VERIFY_PROXY_URL
-  fi
-  if [ ! -f "toggle-proxy.sh" ]; then
-    curl -s -O $TOGGLE_PROXY_URL
-  fi
-  if [ ! -f "enable-proxy.xsl" ]; then
-    curl -s -O $ENABLE_XSL_URL
-  fi
-  if [ ! -f "disable-proxy.xsl" ]; then
-    curl -s -O $DISABLE_XSL_URL
-  fi
+  VERIFY_PROXY_URL=https://github.build.ge.com/raw/adoption/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/verify-proxy.sh
+  TOGGLE_PROXY_URL=https://github.build.ge.com/raw/adoption/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/toggle-proxy.sh
+  ENABLE_XSL_URL=https://github.build.ge.com/raw/adoption/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/enable-proxy.xsl
+  DISABLE_XSL_URL=https://github.build.ge.com/raw/adoption/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/disable-proxy.xsl
+  # Deleting any old files and downloading new ones
+  rm -rf verify-proxy.sh
+  rm -rf toggle-proxy.sh
+  rm -rf enable-proxy.xsl
+  rm -rf disable-proxy.xsl
+  getUsingCurl $VERIFY_PROXY_URL
+  getUsingCurl $TOGGLE_PROXY_URL
+  getUsingCurl $ENABLE_XSL_URL
+  getUsingCurl $DISABLE_XSL_URL
+  echo
+  echo "Verifying proxy settings using verify-proxy.sh"
   source verify-proxy.sh
 }
