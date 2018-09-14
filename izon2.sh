@@ -58,7 +58,6 @@ function getUsingCurl() {
 }
 
 function getVersionFile() {
-  VERSION_JSON_URL = $1
   #if needed, get the version.json that resolves dependent repos from another github repo
   if [ ! -f "$VERSION_JSON" ]; then
     if [[ $currentDir == *"$REPO_NAME" ]]; then
