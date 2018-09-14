@@ -72,7 +72,6 @@ function getVersionFile() {
 }
 
 function getLocalSetupFuncs() {
-  echo $GITHUB_RAW
   #get the predix-scripts url and branch from the version.json
   __readDependency $PREDIX_SCRIPTS PREDIX_SCRIPTS_URL PREDIX_SCRIPTS_BRANCH
   LOCAL_SETUP_FUNCS_URL="$GITHUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/scripts/local-setup-funcs.sh"
