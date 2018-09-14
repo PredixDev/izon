@@ -98,7 +98,7 @@ function getProxyScripts() {
   rm -rf enable-proxy.xsl
   rm -rf disable-proxy.xsl
   getUsingCurl $VERIFY_PROXY_URL
-  echo $TOGGLE_PROXY_URL
+  echo here $TOGGLE_PROXY_URL
   getUsingCurl $TOGGLE_PROXY_URL
   getUsingCurl $ENABLE_XSL_URL
   getUsingCurl $DISABLE_XSL_URL
