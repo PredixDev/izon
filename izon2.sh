@@ -58,7 +58,8 @@ function getUsingCurl() {
 }
 
 function getVersionFile() {
-    #if needed, get the version.json that resolves dependent repos from another github repo
+  VERSION_JSON_URL = $1
+  #if needed, get the version.json that resolves dependent repos from another github repo
   if [ ! -f "$VERSION_JSON" ]; then
     if [[ $currentDir == *"$REPO_NAME" ]]; then
       if [[ ! -f manifest.yml ]]; then
@@ -67,10 +68,7 @@ function getVersionFile() {
       fi
     fi
     #echo $VERSION_JSON_URL
-    if [[ -n $GITHUB_BUILD_TOKEN && $VERSION_JSON_URL = *"github.build.ge"* ]]; then
-      VERSION_JSON_URL=https://$GITHUB_BUILD_TOKEN@github.build.ge.com/raw/adoption/$REPO_NAME/$BRANCH/version.json
-    fi
-    curl -s -O $VERSION_JSON_URL
+    getUsingCurl $VERSION_JSON_URL
   fi
 }
 
