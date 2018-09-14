@@ -103,7 +103,8 @@ function getProxyScripts() {
   getUsingCurl $DISABLE_XSL_URL
   echo
   echo "Verifying proxy settings using verify-proxy.sh"
+  echo "here1"
   ls -al
-  echo "here"
+  echo "here2"
   source verify-proxy.sh
 }
