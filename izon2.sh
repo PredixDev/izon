@@ -104,7 +104,7 @@ function getProxyScripts() {
   echo
   echo "Verifying proxy settings using verify-proxy.sh"
   echo "here1"
-  ls -al
+  #ls -al
   echo "here2"
-  source verify-proxy.sh
+  #source verify-proxy.sh
 }
