@@ -66,8 +66,9 @@ function getVersionFile() {
         exit 1
       fi
     fi
-    #echo $VERSION_JSON_URL
+    echo $VERSION_JSON_URL
     getUsingCurl $VERSION_JSON_URL
+    cat version.json
   fi
 }
 
