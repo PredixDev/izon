@@ -90,17 +90,11 @@ function getProxyScripts() {
   __readDependency $PREDIX_SCRIPTS PREDIX_SCRIPTS_URL PREDIX_SCRIPTS_BRANCH
   VERIFY_PROXY_URL="$GITHUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/verify-proxy.sh"
   TOGGLE_PROXY_URL="$GITHUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/toggle-proxy.sh"
-  ENABLE_XSL_URL="$GITHUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/enable-proxy.xsl"
-  DISABLE_XSL_URL="$GITHUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/disable-proxy.xsl"
   # Deleting any old files and downloading new ones
   rm -rf verify-proxy.sh
   rm -rf toggle-proxy.sh
-  rm -rf enable-proxy.xsl
-  rm -rf disable-proxy.xsl
   getUsingCurl $VERIFY_PROXY_URL
   getUsingCurl $TOGGLE_PROXY_URL
-  getUsingCurl $ENABLE_XSL_URL
-  getUsingCurl $DISABLE_XSL_URL
   echo
   echo "Verifying proxy settings using verify-proxy.sh"
   source verify-proxy.sh
