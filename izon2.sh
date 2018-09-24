@@ -97,5 +97,6 @@ function getProxyScripts() {
   getUsingCurl $TOGGLE_PROXY_URL
   echo
   echo "Verifying proxy settings using verify-proxy.sh"
-  source verify-proxy.sh
+  chmod 755 verify-proxy.sh
+  ./verify-proxy.sh
 }
