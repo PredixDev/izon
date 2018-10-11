@@ -47,9 +47,6 @@ function getUsingCurl() {
   if [[ $1 = *"github.build.ge"* ]]; then
     echo $GITHUB_BUILD_TOKEN 111
     if [[ -n "$GITHUB_BUILD_TOKEN" ]]; then
-      echo "Please ensure env var GITHUB_BUILD_TOKEN for github.build.ge.com token is set" 
-      exit 1
-    else 
       SHORT_LINK=${1##*//}
       URL="https://$GITHUB_BUILD_TOKEN@$SHORT_LINK"
       echo "Downloading the file $1"
@@ -57,7 +54,10 @@ function getUsingCurl() {
       if [ $? -ne 0 ]; then
         echo "Please check proxy env vars, e.g. HTTP_PROXY and HTTPS_PROXY"
         exit 1
-      fi    
+      fi
+    else 
+      echo "Please ensure env var GITHUB_BUILD_TOKEN for github.build.ge.com token is set" 
+      exit 1  
     fi
   else
     echo "Downloading the file $1"
