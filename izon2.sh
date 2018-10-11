@@ -45,7 +45,7 @@ function getUsingCurl() {
   fi
   
   if [[ $1 = *"github.build.ge"* ]]; then
-    echo $GITHUB_BUILD_TOKEN
+    echo $GITHUB_BUILD_TOKEN 111
     if [ -n "$GITHUB_BUILD_TOKEN" ]; then
       echo "Please ensure env var GITHUB_BUILD_TOKEN for github.build.ge.com token is set" 
       exit 1
