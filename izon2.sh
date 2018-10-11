@@ -45,7 +45,7 @@ function getUsingCurl() {
   fi
   
   if [[ $1 = *"github.build.ge"* ]]; then
-    echo $GITHUB_BUILD_TOKEN 111
+    echo $GITHUB_BUILD_TOKEN 222
     if [[ -n "$GITHUB_BUILD_TOKEN" ]]; then
       SHORT_LINK=${1##*//}
       URL="https://$GITHUB_BUILD_TOKEN@$SHORT_LINK"
