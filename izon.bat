@@ -1,4 +1,4 @@
-SET IZON_PS1=https://raw.githubusercontent.com/PredixDev/izon/1.0.0/izon.ps1
+SET IZON_PS1=https://raw.githubusercontent.com/PredixDev/izon/master/izon.ps1
 CALL :%*
 EXIT /b !errorlevel!
 
