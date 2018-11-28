@@ -106,4 +106,5 @@ function getProxyScripts() {
   echo "Verifying proxy settings using verify-proxy.sh"
   chmod 755 verify-proxy.sh
   ./verify-proxy.sh
+  chmod 755 toggle-proxy.sh
 }
