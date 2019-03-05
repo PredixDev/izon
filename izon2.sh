@@ -80,11 +80,13 @@ function getVersionFile() {
 }
 
 function getLocalSetupFuncs() {
+  GITHUB_RAW=$1
+  GITHUB_ORG=$2
   #get the predix-scripts url and branch from the version.json
   __readDependency $PREDIX_SCRIPTS PREDIX_SCRIPTS_URL PREDIX_SCRIPTS_BRANCH
-  LOCAL_SETUP_FUNCS_URL="$GITHUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/scripts/local-setup-funcs.sh"
+  LOCAL_SETUP_FUNCS_URL="$GITHUB_RAW/$GITHUB_ORG/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/scripts/local-setup-funcs.sh"
   # Getting the proxy scripts
-  getProxyScripts $GITHUB_RAW
+  getProxyScripts $GITHUB_RAW $GITHUB_ORG
   # Deleting any old file and downloading a new one
   rm -rf local-setup-funcs.sh
   getUsingCurl $LOCAL_SETUP_FUNCS_URL
@@ -93,10 +95,11 @@ function getLocalSetupFuncs() {
 
 function getProxyScripts() {
   GITHUB_RAW=$1
+  GITHUB_ORG=$2
   #get the predix-scripts url and branch from the version.json
   __readDependency $PREDIX_SCRIPTS PREDIX_SCRIPTS_URL PREDIX_SCRIPTS_BRANCH
-  VERIFY_PROXY_URL="$GITHUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/verify-proxy.sh"
-  TOGGLE_PROXY_URL="$GITHUB_RAW/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/toggle-proxy.sh"
+  VERIFY_PROXY_URL="$GITHUB_RAW/$GITHUB_ORG/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/verify-proxy.sh"
+  TOGGLE_PROXY_URL="$GITHUB_RAW/$GITHUB_ORG/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/toggle-proxy.sh"
   # Deleting any old files and downloading new ones
   rm -rf verify-proxy.sh
   rm -rf toggle-proxy.sh
