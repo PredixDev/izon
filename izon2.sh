@@ -96,8 +96,6 @@ function getLocalSetupFuncs() {
 function getProxyScripts() {
   GITHUB_RAW=$1
   GITHUB_ORG=$2
-  echo "getProxyScripts"
-  echo $1 $2
   #get the predix-scripts url and branch from the version.json
   __readDependency $PREDIX_SCRIPTS PREDIX_SCRIPTS_URL PREDIX_SCRIPTS_BRANCH
   VERIFY_PROXY_URL="$GITHUB_RAW/$GITHUB_ORG/$PREDIX_SCRIPTS/$PREDIX_SCRIPTS_BRANCH/bash/common/proxy/verify-proxy.sh"
